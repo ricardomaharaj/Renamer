@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react'
 
 type State = {
-    input?: string
-    output?: string
-    insert?: string
-    insertPosition?: number
-    insertStart?: number
-    insertEnd?: number
-    overwrite?: string
-    overwritePosition?: number
-    overwriteStart?: number
-    overwriteEnd?: number
-    replace?: string
-    replaceWith?: string
-    replaceStart?: number
-    replaceEnd?: number
+    input: string
+    output: string
+    insert: string
+    insertPosition: number
+    insertStart: number
+    insertEnd: number
+    overwrite: string
+    overwritePosition: number
+    overwriteStart: number
+    overwriteEnd: number
+    replace: string
+    replaceWith: string
+    replaceStart: number
+    replaceEnd: number
 }
 
 export function App() {
 
-    let [state, setState] = useState({
+    let [state, setState] = useState<State>({
         input: '',
         output: '',
         insert: '',
@@ -36,7 +36,7 @@ export function App() {
         replaceEnd: 0,
     })
 
-    let updateState = (update: State) => setState({ ...state, ...update })
+    let updateState = (update: Partial<State>) => setState({ ...state, ...update })
 
     useEffect(() => {
         let arr = state.input.split('\n')
