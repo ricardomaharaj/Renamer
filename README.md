@@ -1,4 +1,4 @@
-# RENAMER
+# Renamer
 
 Simple interface to rename multiple lines based on a set of patterns
 
