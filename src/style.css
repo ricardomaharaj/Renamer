@@ -9,29 +9,29 @@
 }
 
 .row {
-    @apply flex flex-row
+    @apply flex flex-row;
 }
 
 .col {
-    @apply flex flex-col
+    @apply flex flex-col;
 }
 
 body {
-    @apply bg-neutral-100 text-black dark:bg-neutral-900 dark:text-white m-2
+    @apply bg-neutral-100 text-black dark:bg-neutral-900 dark:text-white m-2;
 }
 
 .bg {
-    @apply bg-neutral-200 text-black dark:bg-neutral-800 dark:text-white
+    @apply bg-neutral-200 text-black dark:bg-neutral-800 dark:text-white;
 }
 
 input {
-    @apply bg rounded-xl p-1
+    @apply bg rounded-xl p-1;
 }
 
 textarea {
-    @apply bg rounded-xl p-1 resize
+    @apply bg rounded-xl p-1 resize;
 }
 
 label {
-    @apply ml-1
+    @apply ml-1;
 }
