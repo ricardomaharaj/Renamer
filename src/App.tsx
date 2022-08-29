@@ -124,19 +124,19 @@ export function App() {
             </div>
             <div className='row space-x-2'>
                 <div className='col space-y-1'>
-                    <label> Insert </label>
+                    <label>Insert</label>
                     <input
                         type='text'
                         defaultValue={insert}
                         onChange={(e) => setInsert(e.target.value)}
                     />
-                    <label> At Position </label>
+                    <label>At Position</label>
                     <input
                         type='number'
                         defaultValue={insertPosition}
                         onChange={(e) => setInsertPos(parseInt(e.target.value))}
                     />
-                    <label> From Line </label>
+                    <label>From Line</label>
                     <input
                         type='number'
                         defaultValue={insertStart}
@@ -144,7 +144,7 @@ export function App() {
                             setInsertStart(parseInt(e.target.value))
                         }
                     />
-                    <label> To Line </label>
+                    <label>To Line</label>
                     <input
                         type='number'
                         defaultValue={insertEnd}
@@ -152,13 +152,13 @@ export function App() {
                     />
                 </div>
                 <div className='col space-y-1'>
-                    <label> Overwrite With </label>
+                    <label>Overwrite With</label>
                     <input
                         type='text'
                         defaultValue={overwrite}
                         onChange={(e) => setOverwrite(e.target.value)}
                     />
-                    <label> At Position </label>
+                    <label>At Position</label>
                     <input
                         type='number'
                         defaultValue={overwritePosition}
@@ -166,7 +166,7 @@ export function App() {
                             setOverwritePos(parseInt(e.target.value))
                         }
                     />
-                    <label> From Line </label>
+                    <label>From Line</label>
                     <input
                         type='number'
                         defaultValue={overwriteStart}
@@ -174,7 +174,7 @@ export function App() {
                             setOverwriteStart(parseInt(e.target.value))
                         }
                     />
-                    <label> To Line </label>
+                    <label>To Line</label>
                     <input
                         type='number'
                         defaultValue={overwriteEnd}
@@ -184,19 +184,19 @@ export function App() {
                     />
                 </div>
                 <div className='col space-y-1'>
-                    <label> Replace </label>
+                    <label>Replace</label>
                     <input
                         type='text'
                         defaultValue={replace}
                         onChange={(e) => setReplace(e.target.value)}
                     />
-                    <label> With </label>
+                    <label>With</label>
                     <input
                         type='text'
                         defaultValue={replaceWith}
                         onChange={(e) => setReplaceWith(e.target.value)}
                     />
-                    <label> From Line </label>
+                    <label>From Line</label>
                     <input
                         type='number'
                         defaultValue={replaceStart}
@@ -204,7 +204,7 @@ export function App() {
                             setReplaceStart(parseInt(e.target.value))
                         }
                     />
-                    <label> To Line </label>
+                    <label>To Line</label>
                     <input
                         type='number'
                         defaultValue={replaceEnd}
