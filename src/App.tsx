@@ -1,216 +1,157 @@
-import { useEffect, useState } from 'react'
-
 export function App() {
     const TA_ROWS = 20
     const TA_COLS = 60
 
-    let [input, setInput] = useState('')
-    let [output, setOutput] = useState('')
-
-    let [insert, setInsert] = useState('')
-    let [insertPosition, setInsertPos] = useState(0)
-    let [insertStart, setInsertStart] = useState(0)
-    let [insertEnd, setInsertEnd] = useState(0)
-
-    let [overwrite, setOverwrite] = useState('')
-    let [overwritePosition, setOverwritePos] = useState(0)
-    let [overwriteStart, setOverwriteStart] = useState(0)
-    let [overwriteEnd, setOverwriteEnd] = useState(0)
-
-    let [replace, setReplace] = useState('')
-    let [replaceWith, setReplaceWith] = useState('')
-    let [replaceStart, setReplaceStart] = useState(0)
-    let [replaceEnd, setReplaceEnd] = useState(0)
-
-    let [theme, setTheme] = useState(localStorage.theme || 'dark')
-
-    let toggleTheme = () => {
-        let newTheme = theme === 'dark' ? 'light' : 'dark'
-        document.querySelector('html')!.className = newTheme
-        localStorage.theme = newTheme
-        setTheme(newTheme)
+    let getValue = (id: string): string => {
+        return document.querySelector<HTMLInputElement>(id)!.value
     }
 
-    useEffect(() => {
+    let getValueAsNumber = (id: string): number => {
+        return document.querySelector<HTMLInputElement>(id)!.valueAsNumber
+    }
+
+    let onChange = () => {
+        let input = document.querySelector<HTMLTextAreaElement>('#input')!.value
+
+        let insertText = getValue('#insertText')
+        let insertPosition = getValueAsNumber('#insertPosition')
+        let insertStart = getValueAsNumber('#insertStart')
+        let insertEnd = getValueAsNumber('#insertEnd')
+
+        let overwriteText = getValue('#overwriteText')
+        let overwritePosition = getValueAsNumber('#overwritePosition')
+        let overwriteStart = getValueAsNumber('#overwriteStart')
+        let overwriteEnd = getValueAsNumber('#overwriteEnd')
+
+        let replaceText = getValue('#replaceText')
+        let replaceWith = getValue('#replacePosition')
+        let replaceStart = getValueAsNumber('#replaceStart')
+        let replaceEnd = getValueAsNumber('#replaceEnd')
+
         let arr = input.split('\n')
         let newArr = arr.map((x, i) => {
-            if (replace) {
+            if (replaceText) {
                 if (i >= replaceStart && i <= replaceEnd) {
-                    x = x.replace(replace, replaceWith)
+                    x = x.replace(replaceText, replaceWith)
                 }
             }
-            if (insert) {
+            if (insertText) {
                 if (i >= insertStart && i <= insertEnd) {
                     let one = x.slice(0, insertPosition)
                     let two = x.slice(insertPosition, x.length)
-                    x = one + insert + two
+                    x = one + insertText + two
                 }
             }
-            if (overwrite) {
+            if (overwriteText) {
                 if (i >= overwriteStart && i <= overwriteEnd) {
                     let one = x.slice(0, overwritePosition)
                     let two = x.slice(overwritePosition, x.length)
                     x =
                         one +
-                        overwrite +
-                        two.substring(overwrite.length - 1, two.length)
+                        overwriteText +
+                        two.substring(overwriteText.length - 1, two.length)
                 }
             }
             return x
         })
-        setOutput(newArr.join('\n'))
-    }, [
-        insert,
-        insertPosition,
-        insertStart,
-        insertEnd,
-        overwrite,
-        overwritePosition,
-        overwriteStart,
-        overwriteEnd,
-        replace,
-        replaceWith,
-        replaceStart,
-        replaceEnd
-    ])
+
+        document.querySelector<HTMLTextAreaElement>('#output')!.value =
+            newArr.join('\n')
+    }
 
     return (
         <div className='col m-2 space-y-2'>
             <div className='row justify-center space-x-2 p-2'>
                 <div className='text-xl'> Renamer </div>
-                <div className='p-1' onClick={() => toggleTheme()}>
-                    {theme == 'dark' && (
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='16'
-                            fill='currentColor'
-                            viewBox='0 0 16 16'
-                        >
-                            <path d='M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z' />
-                        </svg>
-                    )}
-                    {theme === 'light' && (
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='16'
-                            fill='currentColor'
-                            viewBox='0 0 16 16'
-                        >
-                            <path d='M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z' />
-                        </svg>
-                    )}
-                </div>
             </div>
             <div className='row space-x-2'>
                 <div className='col space-y-1'>
                     <label>Input</label>
-                    <textarea
-                        rows={TA_ROWS}
-                        cols={TA_COLS}
-                        onChange={(e) => setInput(e.target.value)}
-                    />
+                    <textarea id='input' rows={TA_ROWS} cols={TA_COLS} />
                 </div>
                 <div className='col space-y-1'>
                     <label>Output</label>
                     <textarea
+                        id='output'
                         rows={TA_ROWS}
                         cols={TA_COLS}
                         disabled={true}
-                        value={output}
                     />
                 </div>
             </div>
             <div className='row space-x-2'>
                 <div className='col space-y-1'>
                     <label>Insert</label>
-                    <input
-                        type='text'
-                        defaultValue={insert}
-                        onChange={(e) => setInsert(e.target.value)}
-                    />
+                    <input type='text' id='insertText' onChange={onChange} />
                     <label>At Position</label>
                     <input
                         type='number'
-                        defaultValue={insertPosition}
-                        onChange={(e) => setInsertPos(parseInt(e.target.value))}
+                        id='insertPosition'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                     <label>From Line</label>
                     <input
                         type='number'
-                        defaultValue={insertStart}
-                        onChange={(e) =>
-                            setInsertStart(parseInt(e.target.value))
-                        }
+                        id='insertStart'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                     <label>To Line</label>
                     <input
                         type='number'
-                        defaultValue={insertEnd}
-                        onChange={(e) => setInsertEnd(parseInt(e.target.value))}
+                        id='insertEnd'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                 </div>
                 <div className='col space-y-1'>
                     <label>Overwrite With</label>
-                    <input
-                        type='text'
-                        defaultValue={overwrite}
-                        onChange={(e) => setOverwrite(e.target.value)}
-                    />
+                    <input type='text' id='overwriteText' onChange={onChange} />
                     <label>At Position</label>
                     <input
                         type='number'
-                        defaultValue={overwritePosition}
-                        onChange={(e) =>
-                            setOverwritePos(parseInt(e.target.value))
-                        }
+                        id='overwritePosition'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                     <label>From Line</label>
                     <input
                         type='number'
-                        defaultValue={overwriteStart}
-                        onChange={(e) =>
-                            setOverwriteStart(parseInt(e.target.value))
-                        }
+                        id='overwriteStart'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                     <label>To Line</label>
                     <input
                         type='number'
-                        defaultValue={overwriteEnd}
-                        onChange={(e) =>
-                            setOverwriteEnd(parseInt(e.target.value))
-                        }
+                        id='overwriteEnd'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                 </div>
                 <div className='col space-y-1'>
                     <label>Replace</label>
-                    <input
-                        type='text'
-                        defaultValue={replace}
-                        onChange={(e) => setReplace(e.target.value)}
-                    />
+                    <input type='text' id='replaceText' onChange={onChange} />
                     <label>With</label>
                     <input
                         type='text'
-                        defaultValue={replaceWith}
-                        onChange={(e) => setReplaceWith(e.target.value)}
+                        id='replacePosition'
+                        onChange={onChange}
                     />
                     <label>From Line</label>
                     <input
                         type='number'
-                        defaultValue={replaceStart}
-                        onChange={(e) =>
-                            setReplaceStart(parseInt(e.target.value))
-                        }
+                        id='replaceStart'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                     <label>To Line</label>
                     <input
                         type='number'
-                        defaultValue={replaceEnd}
-                        onChange={(e) =>
-                            setReplaceEnd(parseInt(e.target.value))
-                        }
+                        id='replaceEnd'
+                        defaultValue={0}
+                        onChange={onChange}
                     />
                 </div>
             </div>
