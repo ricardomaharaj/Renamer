@@ -62,7 +62,7 @@ export function App() {
     return (
         <div className='col m-2 space-y-2'>
             <div className='row justify-center space-x-2 p-2'>
-                <div className='text-xl'> Renamer </div>
+                <div className='text-xl'>Renamer</div>
             </div>
             <div className='row space-x-2'>
                 <div className='col space-y-1'>
